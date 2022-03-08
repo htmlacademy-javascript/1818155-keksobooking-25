@@ -70,7 +70,7 @@ const zeroPad = (num, places) => String(num).padStart(places, '0');
 
 const getRandomArrayElement = (elements) => elements[getRandomIntFromRange(0, elements.length - 1)];
 
-const getRandomElements = (elements) => {
+const getRandomArrayElements = (elements) => {
   const result = [];
 
   elements.forEach((element) => {
@@ -104,9 +104,9 @@ const createAd = (id) => {
       guests: guests,
       checkin: getRandomArrayElement(TIME_POINTS),
       checkout: getRandomArrayElement(TIME_POINTS),
-      features: getRandomElements(FEATURES),
+      features: getRandomArrayElements(FEATURES),
       description: `Уютное жильё, включающее в себя ${rooms} комнат для ${guests} гостей. Уверены, Вам у нас понравится!`,
-      photos: getRandomElements(PHOTOS),
+      photos: getRandomArrayElements(PHOTOS),
     },
     location: {
       lat: latitude,
