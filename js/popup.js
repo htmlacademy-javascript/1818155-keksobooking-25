@@ -17,7 +17,7 @@ const createPopup = (ad) => {
   popup.querySelector('.popup__text--address').textContent = ad.offer.address;
 
   const popupPriceElement = popup.querySelector('.popup__text--price');
-  popupPriceElement.textContent = popupPriceElement.textContent.replace('5200', ad.offer.price);
+  popupPriceElement.innerHTML = `${ad.offer.price} <span>₽/ночь</span>`;
 
   popup.querySelector('.popup__type').textContent = OFFER_TYPE_TEXT[ad.offer.type];
   popup.querySelector('.popup__text--capacity').textContent = `${ad.offer.rooms} комнаты для ${ad.offer.guests} гостей`;
