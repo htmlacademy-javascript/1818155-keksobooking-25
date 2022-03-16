@@ -32,7 +32,7 @@ const createPopup = (ad) => {
     }
   });
 
-  if (ad.offer.features.length === 0) {
+  if (!ad.offer.features.length) {
     popup.querySelector('.popup__features').remove();
   }
 
@@ -52,7 +52,7 @@ const createPopup = (ad) => {
   });
   popupPhotoTemplate.remove();
 
-  if (ad.offer.photos.length === 0) {
+  if (!ad.offer.photos.length) {
     popupPhotoListElement.remove();
   }
 
