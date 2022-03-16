@@ -1,4 +1,3 @@
-import {generateAds, getAds} from './data.js';
+import {drawPopup} from './popup.js';
 
-generateAds();
-getAds();
+drawPopup();
