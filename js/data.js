@@ -15,6 +15,7 @@ const COORDINATES_PRECISION = 5;
 const ROOMS_NUMBER_MAX = 10;
 const GUESTS_NUMBER_MAX = 20;
 const AVATAR_FILENAME_DECIMAL_PLACES = 2;
+const MAX_PRICE = 100000;
 
 const OFFER_TYPES = [
   'palace',
@@ -59,7 +60,7 @@ const createAd = (id) => {
     offer: {
       title: `Лот №${id}`,
       address: `${latitude}, ${longitude}`,
-      price: getRandomIntFromRange(1, Number.MAX_SAFE_INTEGER),
+      price: getRandomIntFromRange(1, MAX_PRICE),
       type: getRandomArrayElement(OFFER_TYPES),
       rooms: rooms,
       guests: guests,
