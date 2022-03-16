@@ -7,6 +7,14 @@ import {
 } from './util.js';
 
 const ADS_COUNT = 10;
+const LATITUDE_MIN = 35.65000;
+const LATITUDE_MAX = 35.70000;
+const LONGITUDE_MIN = 139.70000;
+const LONGITUDE_MAX = 139.80000;
+const COORDINATES_PRECISION = 5;
+const ROOMS_NUMBER_MAX = 10;
+const GUESTS_NUMBER_MAX = 20;
+const AVATAR_FILENAME_DECIMAL_PLACES = 2;
 
 const OFFER_TYPES = [
   'palace',
@@ -38,15 +46,15 @@ const PHOTOS = [
 ];
 
 const createAd = (id) => {
-  const latitude = getRandomFloatFromRange(35.65000, 35.70000, 5);
-  const longitude = getRandomFloatFromRange(139.70000, 139.80000, 5);
+  const latitude = getRandomFloatFromRange(LATITUDE_MIN, LATITUDE_MAX, COORDINATES_PRECISION);
+  const longitude = getRandomFloatFromRange(LONGITUDE_MIN, LONGITUDE_MAX, COORDINATES_PRECISION);
 
-  const rooms = getRandomIntFromRange(1, 10);
-  const guests = getRandomIntFromRange(1, 20);
+  const rooms = getRandomIntFromRange(1, ROOMS_NUMBER_MAX);
+  const guests = getRandomIntFromRange(1, GUESTS_NUMBER_MAX);
 
   return {
     author: {
-      avatar: `img/avatars/user${zeroPad(id, 2)}.png`,
+      avatar: `img/avatars/user${zeroPad(id, AVATAR_FILENAME_DECIMAL_PLACES)}.png`,
     },
     offer: {
       title: `Лот №${id}`,
