@@ -6,32 +6,26 @@ const filtersFormElement = document.querySelector('.map__filters');
 const filtersFromFilterElements = filtersFormElement.querySelectorAll('.map__filter');
 const filtersFormFeaturesElement = filtersFormElement.querySelector('.map__features');
 
-const deactivateForm = () => {
-  adFormElement.classList.add('ad-form--disabled');
-  adFormHeaderElement.disabled = true;
+const setFormState = (isActive) => {
+  adFormElement.classList.toggle('ad-form--disabled', !isActive);
+  adFormHeaderElement.disabled = !isActive;
   adFormFieldsetElements.forEach((item) => {
-    item.disabled = true;
+    item.disabled = !isActive;
   });
 
-  filtersFormElement.classList.add('map__filters--disabled');
+  filtersFormElement.classList.toggle('map__filters--disabled', !isActive);
   filtersFromFilterElements.forEach((item) => {
-    item.disabled = true;
+    item.disabled = !isActive;
   });
-  filtersFormFeaturesElement.disabled = true;
+  filtersFormFeaturesElement.disabled = !isActive;
+};
+
+const deactivateForm = () => {
+  setFormState(false);
 };
 
 const activateForm = () => {
-  adFormElement.classList.remove('ad-form--disabled');
-  adFormHeaderElement.disabled = false;
-  adFormFieldsetElements.forEach((item) => {
-    item.disabled = false;
-  });
-
-  filtersFormElement.classList.remove('map__filters--disabled');
-  filtersFromFilterElements.forEach((item) => {
-    item.disabled = false;
-  });
-  filtersFormFeaturesElement.disabled = false;
+  setFormState(true);
 };
 
 export {deactivateForm, activateForm};
