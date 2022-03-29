@@ -17,19 +17,16 @@ const config = {
 
 const pristine = new Pristine(adFormElement, config);
 
-pristine.addValidator(capacityElement, (capacityValue) => {
-  const roomNumberValue = roomNumberElement.value;
-  if (roomNumberValue in ROOM_NUMBER_CAPACITY && ROOM_NUMBER_CAPACITY[roomNumberValue].includes(capacityValue)) {
-    return true;
-  }
-
-  return false;
-}, 'Количество гостей не соответствует количеству комнат');
+pristine.addValidator(capacityElement,
+  (capacityValue) => roomNumberElement.value in ROOM_NUMBER_CAPACITY && ROOM_NUMBER_CAPACITY[roomNumberElement.value].includes(capacityValue),
+  'Количество гостей не соответствует количеству комнат');
 
 adFormElement.addEventListener('submit', (evt) => {
-  evt.preventDefault();
+  const isValid = pristine.validate();
 
-  pristine.validate();
+  if (!isValid) {
+    evt.preventDefault();
+  }
 });
 
 roomNumberElement.addEventListener('change', () => {
