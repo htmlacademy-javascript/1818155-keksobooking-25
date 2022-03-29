@@ -1028,3 +1028,8 @@ fieldset {
 .hidden {
   display: none;
 }
+
+.error-text {
+  color: #ff5635;
+  text-align: center;
+}

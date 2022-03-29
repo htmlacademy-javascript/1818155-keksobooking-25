@@ -1,3 +1,5 @@
+import './form-validation.js';
+
 const adFormElement = document.querySelector('.ad-form');
 const adFormHeaderElement = adFormElement.querySelector('.ad-form-header');
 const adFormFieldsetElements = adFormElement.querySelectorAll('.ad-form__element');
