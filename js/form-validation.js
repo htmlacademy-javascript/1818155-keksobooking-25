@@ -65,9 +65,13 @@ typeElement.addEventListener('change', () => {
   priceElement.dataset.pristineMinMessage = `Значение не может быть меньше ${minPrice}`;
 
   // не нашла другого способа заставить Pristine подхватить новое значение в min
-  pristine.destroy();
-  pristine = initPristine();
+  // pristine.destroy();
+  // pristine = initPristine();
 });
+
+pristine.addValidator(priceElement,
+  (priceValue) => priceValue.length && parseInt(priceValue, 10) >= priceElement.min && parseInt(priceValue, 10) <= priceElement.max,
+  () => `Цена должна быть в диапазоне от ${priceElement.min} до ${priceElement.max}`);
 
 timeInElement.addEventListener('change', () => {
   timeOutElement.value = timeInElement.value;
