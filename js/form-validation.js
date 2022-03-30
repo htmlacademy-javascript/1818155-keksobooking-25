@@ -1,11 +1,3 @@
-const adFormElement = document.querySelector('.ad-form');
-const roomNumberElement = adFormElement.querySelector('#room_number');
-const capacityElement = adFormElement.querySelector('#capacity');
-const typeElement = adFormElement.querySelector('#type');
-const priceElement = adFormElement.querySelector('#price');
-const timeInElement = adFormElement.querySelector('#timein');
-const timeOutElement = adFormElement.querySelector('#timeout');
-
 const ROOM_NUMBER_CAPACITY = {
   '1': ['1'],
   '2': ['1', '2'],
@@ -20,6 +12,14 @@ const TYPE_MIN_PRICE = {
   'house': 5000,
   'palace': 10000,
 };
+
+const adFormElement = document.querySelector('.ad-form');
+const roomNumberElement = adFormElement.querySelector('#room_number');
+const capacityElement = adFormElement.querySelector('#capacity');
+const typeElement = adFormElement.querySelector('#type');
+const priceElement = adFormElement.querySelector('#price');
+const timeInElement = adFormElement.querySelector('#timein');
+const timeOutElement = adFormElement.querySelector('#timeout');
 
 const initPristine = () => {
   const config = {
