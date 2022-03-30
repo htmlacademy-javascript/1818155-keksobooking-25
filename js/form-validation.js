@@ -21,6 +21,19 @@ const priceElement = adFormElement.querySelector('#price');
 const timeInElement = adFormElement.querySelector('#timein');
 const timeOutElement = adFormElement.querySelector('#timeout');
 
+const setMinPriceByType = () => {
+  const type = typeElement.value;
+
+  if (!(type in TYPE_MIN_PRICE)) {
+    return;
+  }
+
+  const minPrice = TYPE_MIN_PRICE[type];
+
+  priceElement.placeholder = minPrice;
+  priceElement.min = minPrice;
+};
+
 const initPristine = () => {
   const config = {
     classTo: 'ad-form__element',
@@ -34,10 +47,12 @@ const initPristine = () => {
     (capacityValue) => roomNumberElement.value in ROOM_NUMBER_CAPACITY && ROOM_NUMBER_CAPACITY[roomNumberElement.value].includes(capacityValue),
     'Количество гостей не соответствует количеству комнат');
 
+  setMinPriceByType();
+
   return localPristine;
 };
 
-let pristine = initPristine();
+const pristine = initPristine();
 
 adFormElement.addEventListener('submit', (evt) => {
   const isValid = pristine.validate();
@@ -52,21 +67,11 @@ roomNumberElement.addEventListener('change', () => {
 });
 
 typeElement.addEventListener('change', () => {
-  const type = typeElement.value;
+  setMinPriceByType();
 
-  if (!(type in TYPE_MIN_PRICE)) {
-    return;
+  if (priceElement.value.length) {
+    pristine.validate(priceElement);
   }
-
-  const minPrice = TYPE_MIN_PRICE[type];
-
-  priceElement.placeholder = minPrice;
-  priceElement.min = minPrice;
-  priceElement.dataset.pristineMinMessage = `Значение не может быть меньше ${minPrice}`;
-
-  // не нашла другого способа заставить Pristine подхватить новое значение в min
-  // pristine.destroy();
-  // pristine = initPristine();
 });
 
 pristine.addValidator(priceElement,
