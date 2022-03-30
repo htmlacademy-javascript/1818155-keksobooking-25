@@ -3,6 +3,8 @@ const roomNumberElement = adFormElement.querySelector('#room_number');
 const capacityElement = adFormElement.querySelector('#capacity');
 const typeElement = adFormElement.querySelector('#type');
 const priceElement = adFormElement.querySelector('#price');
+const timeInElement = adFormElement.querySelector('#timein');
+const timeOutElement = adFormElement.querySelector('#timeout');
 
 const ROOM_NUMBER_CAPACITY = {
   '1': ['1'],
@@ -65,4 +67,12 @@ typeElement.addEventListener('change', () => {
   // не нашла другого способа заставить Pristine подхватить новое значение в min
   pristine.destroy();
   pristine = initPristine();
+});
+
+timeInElement.addEventListener('change', () => {
+  timeOutElement.value = timeInElement.value;
+});
+
+timeOutElement.addEventListener('change', () => {
+  timeInElement.value = timeOutElement.value;
 });
