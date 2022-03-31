@@ -1053,3 +1053,23 @@ fieldset {
 .hidden {
   display: none;
 }
+
+.error-text {
+  position: absolute;
+  color: #ff5635;
+  text-align: center;
+  border: 1px solid #b0b090;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: #dbdbcc;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.error-text::before {
+  position: absolute;
+  top: -13px;
+  left: 10px;
+  content: "△";
+  color: #b0b090;
+}
