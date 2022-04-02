@@ -1,4 +1,5 @@
 import './form-validation.js';
+import {setSliderState} from './slider.js';
 
 const adFormElement = document.querySelector('.ad-form');
 const adFormHeaderElement = adFormElement.querySelector('.ad-form-header');
@@ -20,6 +21,8 @@ const setFormState = (isActive) => {
     item.disabled = !isActive;
   });
   filtersFormFeaturesElement.disabled = !isActive;
+
+  setSliderState(isActive);
 };
 
 const deactivateForm = () => {

@@ -1,5 +1,3 @@
-import {generateAds, getAds} from './data.js';
-
 const OFFER_TYPE_TEXT = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -66,16 +64,4 @@ const createPopup = (ad) => {
   return popup;
 };
 
-const createPopups = () => {
-  generateAds();
-  const ads = getAds();
-  return ads.map((ad) => createPopup(ad));
-};
-
-const drawPopup = () => {
-  const mapCanvas = document.querySelector('#map-canvas');
-  const popups = createPopups();
-  mapCanvas.append(popups[0]);
-};
-
-export {drawPopup};
+export {createPopup};
