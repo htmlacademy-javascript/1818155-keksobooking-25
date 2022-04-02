@@ -85,3 +85,9 @@ timeInElement.addEventListener('change', () => {
 timeOutElement.addEventListener('change', () => {
   timeInElement.value = timeOutElement.value;
 });
+
+const validateElement = (element) => {
+  pristine.validate(element);
+};
+
+export {validateElement};
