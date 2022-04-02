@@ -8,6 +8,11 @@ const DEFAULT_COORDINATES = {
 const DEFAULT_ZOOM = 12;
 const COORDINATES_PRECISION = 5;
 
+const MAIN_MARKER_WIDTH = 52;
+const MAIN_MARKER_HEIGHT = 52;
+const COMMON_MARKER_WIDTH = 40;
+const COMMON_MARKER_HEIGHT = 40;
+
 const addressElement = document.querySelector('#address');
 
 let map, markerGroup;
@@ -26,8 +31,8 @@ const initMap = (cb) => {
 
   const mainMarkerIcon = L.icon({
     iconUrl: './img/main-pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
+    iconSize: [MAIN_MARKER_WIDTH, MAIN_MARKER_HEIGHT],
+    iconAnchor: [MAIN_MARKER_WIDTH / 2, MAIN_MARKER_HEIGHT],
   });
 
   const mainMarker = L.marker(
@@ -53,8 +58,8 @@ const updatePins = (ads) => {
 
   const icon = L.icon({
     iconUrl: './img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
+    iconSize: [COMMON_MARKER_WIDTH, COMMON_MARKER_HEIGHT],
+    iconAnchor: [COMMON_MARKER_WIDTH / 2, COMMON_MARKER_HEIGHT],
   });
 
   ads.forEach((ad) => {
