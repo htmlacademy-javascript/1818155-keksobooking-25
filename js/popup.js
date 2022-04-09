@@ -21,17 +21,17 @@ const createPopup = (ad) => {
   popup.querySelector('.popup__text--capacity').textContent = `${ad.offer.rooms} комнаты для ${ad.offer.guests} гостей`;
   popup.querySelector('.popup__text--time').textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
 
-  const popupFeatureElements = popup.querySelectorAll('.popup__feature');
-  popupFeatureElements.forEach((featureElement) => {
-    const isIncluded = ad.offer.features.some((feature) => featureElement.classList.contains(`popup__feature--${feature}`));
-
-    if (!isIncluded) {
-      featureElement.remove();
-    }
-  });
-
-  if (!ad.offer.features.length) {
+  if (!ad.offer.features || !ad.offer.features.length) {
     popup.querySelector('.popup__features').remove();
+  } else {
+    const popupFeatureElements = popup.querySelectorAll('.popup__feature');
+    popupFeatureElements.forEach((featureElement) => {
+      const isIncluded = ad.offer.features.some((feature) => featureElement.classList.contains(`popup__feature--${feature}`));
+
+      if (!isIncluded) {
+        featureElement.remove();
+      }
+    });
   }
 
   const popupDescriptionElement = popup.querySelector('.popup__description');
@@ -43,16 +43,16 @@ const createPopup = (ad) => {
 
   const popupPhotoListElement = popup.querySelector('.popup__photos');
   const popupPhotoTemplate = popupPhotoListElement.querySelector('img');
-  ad.offer.photos.forEach((photo) => {
-    const photoElement = popupPhotoTemplate.cloneNode(true);
-    photoElement.src = photo;
-    popupPhotoListElement.append(photoElement);
-  });
-  popupPhotoTemplate.remove();
-
-  if (!ad.offer.photos.length) {
+  if (!ad.offer.photos || !ad.offer.photos.length) {
     popupPhotoListElement.remove();
+  } else {
+    ad.offer.photos.forEach((photo) => {
+      const photoElement = popupPhotoTemplate.cloneNode(true);
+      photoElement.src = photo;
+      popupPhotoListElement.append(photoElement);
+    });
   }
+  popupPhotoTemplate.remove();
 
   const popupAvatarElement = popup.querySelector('.popup__avatar');
   if (!ad.author.avatar) {

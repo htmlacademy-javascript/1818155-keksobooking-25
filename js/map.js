@@ -13,11 +13,11 @@ const COMMON_MARKER_SIZE = 40;
 
 const addressElement = document.querySelector('#address');
 
-let map, markerGroup;
+let map, mainMarker, markerGroup;
 
-const initMap = (cb) => {
+const initMap = (onSuccess) => {
   map = L.map('map-canvas')
-    .on('load', cb)
+    .on('load', onSuccess)
     .setView(DEFAULT_COORDINATES, DEFAULT_ZOOM);
 
   L.tileLayer(
@@ -33,7 +33,7 @@ const initMap = (cb) => {
     iconAnchor: [MAIN_MARKER_SIZE / 2, MAIN_MARKER_SIZE],
   });
 
-  const mainMarker = L.marker(
+  mainMarker = L.marker(
     DEFAULT_COORDINATES,
     {
       draggable: true,
@@ -49,6 +49,12 @@ const initMap = (cb) => {
   });
 
   markerGroup = L.layerGroup().addTo(map);
+};
+
+const resetMap = () => {
+  map.setView(DEFAULT_COORDINATES, DEFAULT_ZOOM);
+  mainMarker.setLatLng(DEFAULT_COORDINATES);
+  map.closePopup();
 };
 
 const updatePins = (ads) => {
@@ -80,4 +86,4 @@ const updatePins = (ads) => {
   });
 };
 
-export {initMap, updatePins};
+export {initMap, resetMap, updatePins};

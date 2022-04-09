@@ -34,6 +34,10 @@ const initSlider = () => {
   });
 };
 
+const resetSlider = () => {
+  sliderElement.noUiSlider.set(START_VALUE);
+};
+
 const setSliderState = (enabled) => {
   if (enabled) {
     sliderElement.removeAttribute('disabled');
@@ -59,4 +63,4 @@ priceElement.addEventListener('change', () => {
   }
 });
 
-export {initSlider, setSliderState};
+export {initSlider, resetSlider, setSliderState};

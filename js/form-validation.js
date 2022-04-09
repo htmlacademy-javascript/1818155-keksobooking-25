@@ -54,14 +54,6 @@ const initPristine = () => {
 
 const pristine = initPristine();
 
-adFormElement.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
-
-  if (!isValid) {
-    evt.preventDefault();
-  }
-});
-
 roomNumberElement.addEventListener('change', () => {
   pristine.validate(capacityElement);
 });
@@ -90,4 +82,11 @@ const validateElement = (element) => {
   pristine.validate(element);
 };
 
-export {validateElement};
+const isFormValid = () => pristine.validate();
+
+const resetPriceValidation = () => {
+  setMinPriceByType();
+  pristine.reset();
+};
+
+export {validateElement, isFormValid, resetPriceValidation};
