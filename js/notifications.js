@@ -4,17 +4,6 @@ const bodyElement = document.querySelector('body');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
-const closeNotification = () => {
-  const notification = document.querySelector('.notification-shown');
-  if (notification) {
-    notification.remove();
-    // eslint-disable-next-line no-use-before-define
-    document.removeEventListener('keydown', onNotificationEscKeydown);
-    // eslint-disable-next-line no-use-before-define
-    document.removeEventListener('click', onNotificationClick);
-  }
-};
-
 const onNotificationEscKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -25,6 +14,15 @@ const onNotificationEscKeydown = (evt) => {
 const onNotificationClick = () => {
   closeNotification();
 };
+
+function closeNotification() {
+  const notification = document.querySelector('.notification-shown');
+  if (notification) {
+    notification.remove();
+    document.removeEventListener('keydown', onNotificationEscKeydown);
+    document.removeEventListener('click', onNotificationClick);
+  }
+}
 
 const showNotification = (template) => {
   const notification = template.cloneNode(true);
