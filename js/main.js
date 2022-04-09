@@ -1,12 +1,17 @@
-import {generateAds, getAds} from './data.js';
-import {activateForm, deactivateForm} from './form.js';
+import {getData} from './api.js';
+import {deactivatePage, activateForm, activateFilters} from './form.js';
 import {initMap, updatePins} from './map.js';
 import {initSlider} from './slider.js';
 
-initSlider();
-deactivateForm();
-initMap(activateForm);
+const MAX_ADS_COUNT = 10;
 
-generateAds();
-const ads = getAds();
-updatePins(ads);
+initSlider();
+deactivatePage();
+
+initMap(() => {
+  activateForm();
+  getData((ads) => {
+    updatePins(ads.slice(0, MAX_ADS_COUNT));
+    activateFilters();
+  });
+});

@@ -16,21 +16,28 @@ const setFormState = (isActive) => {
     item.disabled = !isActive;
   });
 
+  setSliderState(isActive);
+};
+
+const setFiltersState = (isActive) => {
   filtersFormElement.classList.toggle('map__filters--disabled', !isActive);
   filtersFromFilterElements.forEach((item) => {
     item.disabled = !isActive;
   });
   filtersFormFeaturesElement.disabled = !isActive;
-
-  setSliderState(isActive);
 };
 
-const deactivateForm = () => {
+const deactivatePage = () => {
   setFormState(false);
+  setFiltersState(false);
 };
 
 const activateForm = () => {
   setFormState(true);
 };
 
-export {deactivateForm, activateForm};
+const activateFilters = () => {
+  setFiltersState(true);
+};
+
+export {deactivatePage, activateForm, activateFilters};

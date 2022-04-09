@@ -15,9 +15,9 @@ const addressElement = document.querySelector('#address');
 
 let map, markerGroup;
 
-const initMap = (cb) => {
+const initMap = (onSuccess) => {
   map = L.map('map-canvas')
-    .on('load', cb)
+    .on('load', onSuccess)
     .setView(DEFAULT_COORDINATES, DEFAULT_ZOOM);
 
   L.tileLayer(
