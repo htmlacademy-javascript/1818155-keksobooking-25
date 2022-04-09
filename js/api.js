@@ -15,4 +15,20 @@ const getData = (onSuccess) => {
     .catch(() => showAlert('Не удалось загрузить похожие объявления'));
 };
 
-export {getData};
+const sendData = (onSuccess, onFail, body) => {
+  fetch('https://25.javascript.pages.academy/keksobooking', {
+    method: 'POST',
+    body,
+  })
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+        return;
+      }
+
+      throw Error('Server answered not successfully');
+    })
+    .catch(onFail);
+};
+
+export {getData, sendData};

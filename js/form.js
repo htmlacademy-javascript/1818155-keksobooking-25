@@ -1,9 +1,13 @@
-import './form-validation.js';
-import {setSliderState} from './slider.js';
+import {isFormValid, resetPriceValidation} from './form-validation.js';
+import {resetSlider, setSliderState} from './slider.js';
+import {sendData} from './api.js';
+import {resetMap} from './map.js';
 
 const adFormElement = document.querySelector('.ad-form');
 const adFormHeaderElement = adFormElement.querySelector('.ad-form-header');
 const adFormFieldsetElements = adFormElement.querySelectorAll('.ad-form__element');
+const submitButton = adFormElement.querySelector('.ad-form__submit');
+const resetButton = adFormElement.querySelector('.ad-form__reset');
 
 const filtersFormElement = document.querySelector('.map__filters');
 const filtersFromFilterElements = filtersFormElement.querySelectorAll('.map__filter');
@@ -40,4 +44,50 @@ const activateFilters = () => {
   setFiltersState(true);
 };
 
-export {deactivatePage, activateForm, activateFilters};
+const resetPage = () => {
+  adFormElement.reset();
+  filtersFormElement.reset();
+  resetMap();
+  resetSlider();
+  resetPriceValidation();
+};
+
+resetButton.addEventListener('click', (evt) => {
+  evt.preventDefault();
+  resetPage();
+});
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const setFormSubmit = (onSuccess, onFail) => {
+  adFormElement.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = isFormValid();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          resetPage();
+          unblockSubmitButton();
+        },
+        () => {
+          onFail();
+          unblockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
+    }
+  });
+};
+
+export {deactivatePage, activateForm, activateFilters, setFormSubmit};
