@@ -86,7 +86,7 @@ const isFormValid = () => pristine.validate();
 
 const resetPriceValidation = () => {
   setMinPriceByType();
-  validateElement(priceElement);
+  pristine.reset();
 };
 
 export {validateElement, isFormValid, resetPriceValidation};
