@@ -10,7 +10,7 @@ const submitButton = adFormElement.querySelector('.ad-form__submit');
 const resetButton = adFormElement.querySelector('.ad-form__reset');
 
 const filtersFormElement = document.querySelector('.map__filters');
-const filtersFromFilterElements = filtersFormElement.querySelectorAll('.map__filter');
+const filtersFormFilterElements = filtersFormElement.querySelectorAll('.map__filter');
 const filtersFormFeaturesElement = filtersFormElement.querySelector('.map__features');
 
 const setFormState = (isActive) => {
@@ -25,7 +25,7 @@ const setFormState = (isActive) => {
 
 const setFiltersState = (isActive) => {
   filtersFormElement.classList.toggle('map__filters--disabled', !isActive);
-  filtersFromFilterElements.forEach((item) => {
+  filtersFormFilterElements.forEach((item) => {
     item.disabled = !isActive;
   });
   filtersFormFeaturesElement.disabled = !isActive;
@@ -90,4 +90,12 @@ const setFormSubmit = (onSuccess, onFail) => {
   });
 };
 
-export {deactivatePage, activateForm, activateFilters, setFormSubmit};
+const setFilterChange = (cb) => {
+  filtersFormElement.addEventListener('change', (evt) => {
+    if (evt.target.closest('.map__filter') || evt.target.closest('.map__features')) {
+      cb();
+    }
+  });
+};
+
+export {deactivatePage, activateForm, activateFilters, setFormSubmit, setFilterChange};
