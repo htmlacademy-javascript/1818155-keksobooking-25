@@ -18,15 +18,15 @@ initMap(() => {
     showErrorSubmitNotification
   );
   getData((ads) => {
-    const renderPins = (ads) => {
+    const renderPins = () => {
       const filteredAds = filterAds(ads);
       updatePins(filteredAds.slice(0, MAX_ADS_COUNT));
     };
 
-    renderPins(ads);
+    renderPins();
     activateFilters();
     setFilterChange(debounce(() => {
-      renderPins(ads);
+      renderPins();
     }));
   });
 });
