@@ -1,3 +1,18 @@
+const PRICE_FILTER = {
+  'low': {
+    MIN_PRICE: 0,
+    MAX_PRICE: 10000,
+  },
+  'middle': {
+    MIN_PRICE: 10000,
+    MAX_PRICE: 50000,
+  },
+  'high': {
+    MIN_PRICE: 50000,
+    MAX_PRICE: 100000,
+  },
+};
+
 const filterFormElement = document.querySelector('.map__filters');
 const filterTypeElement = filterFormElement.querySelector('#housing-type');
 const filterPriceElement = filterFormElement.querySelector('#housing-price');
@@ -26,11 +41,12 @@ const filterAds = (ads) => {
         return true;
       }
 
-      switch (filterPriceElement.value) {
-        case 'low': return ad.offer.price <= 10000;
-        case 'middle': return ad.offer.price >= 10000 && ad.offer.price <= 50000;
-        case 'high': return ad.offer.price >= 50000;
+      if (!(filterPriceElement.value in PRICE_FILTER)) {
+        return true;
       }
+
+      const currentPriceFilter = PRICE_FILTER[filterPriceElement.value];
+      return ad.offer.price >= currentPriceFilter.MIN_PRICE && ad.offer.price <= currentPriceFilter.MAX_PRICE;
     })
     // фильтр по количеству комнат
     .filter((ad) => filterRoomsElement.value === 'any' || ad.offer.rooms === parseInt(filterRoomsElement.value, 10))
