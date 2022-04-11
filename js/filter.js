@@ -19,9 +19,7 @@ const filterAds = (ads) => {
 
   const result = ads
     // фильтр по типу жилья
-    .filter((ad) => {
-      return filterTypeElement.value === 'any' || ad.offer.type === filterTypeElement.value;
-    })
+    .filter((ad) => filterTypeElement.value === 'any' || ad.offer.type === filterTypeElement.value)
     // фильтр по цене
     .filter((ad) => {
       if (filterPriceElement.value === 'any') {
@@ -35,13 +33,9 @@ const filterAds = (ads) => {
       }
     })
     // фильтр по количеству комнат
-    .filter((ad) => {
-      return filterRoomsElement.value === 'any' || ad.offer.rooms === parseInt(filterRoomsElement.value);
-    })
+    .filter((ad) => filterRoomsElement.value === 'any' || ad.offer.rooms === parseInt(filterRoomsElement.value, 10))
     // фильтр по количеству гостей
-    .filter((ad) => {
-      return filterGuestsElement.value === 'any' || ad.offer.guests === parseInt(filterGuestsElement.value);
-    })
+    .filter((ad) => filterGuestsElement.value === 'any' || ad.offer.guests === parseInt(filterGuestsElement.value, 10))
     // фильтр по наличию удобств
     .filter((ad) => {
       if (!activeFeatureFilters.length) {
