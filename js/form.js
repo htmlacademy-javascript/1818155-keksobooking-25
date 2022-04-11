@@ -1,7 +1,7 @@
 import {isFormValid, resetPriceValidation} from './form-validation.js';
 import {resetSlider, setSliderState} from './slider.js';
 import {sendData} from './api.js';
-import {resetMap} from './map.js';
+import {resetMap, updatePins} from './map.js';
 
 const adFormElement = document.querySelector('.ad-form');
 const adFormHeaderElement = adFormElement.querySelector('.ad-form-header');
@@ -44,10 +44,21 @@ const activateFilters = () => {
   setFiltersState(true);
 };
 
+let resetPins;
+
+const setResetPins = (cb) => {
+  resetPins = cb;
+};
+
 const resetPage = () => {
   adFormElement.reset();
   filtersFormElement.reset();
+
   resetMap();
+  if (resetPins) {
+    resetPins();
+  }
+
   resetSlider();
   resetPriceValidation();
 };
@@ -98,4 +109,4 @@ const setFilterChange = (cb) => {
   });
 };
 
-export {deactivatePage, activateForm, activateFilters, setFormSubmit, setFilterChange};
+export {deactivatePage, activateForm, activateFilters, setFormSubmit, setFilterChange, setResetPins};

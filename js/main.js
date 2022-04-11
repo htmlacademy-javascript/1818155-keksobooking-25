@@ -1,5 +1,5 @@
 import {getData} from './api.js';
-import {deactivatePage, activateForm, activateFilters, setFormSubmit, setFilterChange} from './form.js';
+import {deactivatePage, activateForm, activateFilters, setFormSubmit, setFilterChange, setResetPins} from './form.js';
 import {initMap, updatePins} from './map.js';
 import {initSlider} from './slider.js';
 import {showSuccessSubmitNotification, showErrorSubmitNotification} from './notifications.js';
@@ -22,6 +22,8 @@ initMap(() => {
       const filteredAds = filterAds(ads);
       updatePins(filteredAds.slice(0, MAX_ADS_COUNT));
     };
+
+    setResetPins(renderPins);
 
     renderPins();
     activateFilters();
