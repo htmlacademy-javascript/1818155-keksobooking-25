@@ -5,6 +5,7 @@ import {initSlider} from './slider.js';
 import {showSuccessSubmitNotification, showErrorSubmitNotification} from './notifications.js';
 import {filterAds} from './filter.js';
 import {debounce} from './util.js';
+import './image.js';
 
 const MAX_ADS_COUNT = 10;
 
