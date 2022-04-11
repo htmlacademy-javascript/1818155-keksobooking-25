@@ -1,7 +1,7 @@
 import {isFormValid, resetPriceValidation} from './form-validation.js';
 import {resetSlider, setSliderState} from './slider.js';
 import {sendData} from './api.js';
-import {resetMap, updatePins} from './map.js';
+import {resetMap} from './map.js';
 
 const adFormElement = document.querySelector('.ad-form');
 const adFormHeaderElement = adFormElement.querySelector('.ad-form-header');
