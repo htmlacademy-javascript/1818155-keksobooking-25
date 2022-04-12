@@ -46,6 +46,22 @@ const setSliderState = (enabled) => {
   }
 };
 
+const updateSliderMinValue = (value) => {
+  const price = priceElement.value;
+
+  if (sliderElement.noUiSlider) {
+    sliderElement.noUiSlider.updateOptions({
+      range: {
+        min: value,
+        max: MAX_VALUE,
+      },
+    });
+  }
+
+  // цена не должна самопроизвольно меняться, даже если стала выходить за новый диапазон слайдера
+  priceElement.value = price;
+};
+
 priceElement.addEventListener('change', () => {
   if (!priceElement.value) {
     return;
@@ -63,4 +79,4 @@ priceElement.addEventListener('change', () => {
   }
 });
 
-export {initSlider, resetSlider, setSliderState};
+export {initSlider, resetSlider, setSliderState, updateSliderMinValue};
