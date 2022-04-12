@@ -2,6 +2,7 @@ import {isFormValid, resetPriceValidation} from './form-validation.js';
 import {resetSlider, setSliderState} from './slider.js';
 import {sendData} from './api.js';
 import {resetMap} from './map.js';
+import {resetPreviews} from './image.js';
 
 const adFormElement = document.querySelector('.ad-form');
 const adFormHeaderElement = adFormElement.querySelector('.ad-form-header');
@@ -61,6 +62,7 @@ const resetPage = () => {
 
   resetSlider();
   resetPriceValidation();
+  resetPreviews();
 };
 
 resetButton.addEventListener('click', (evt) => {

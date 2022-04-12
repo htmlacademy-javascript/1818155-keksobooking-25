@@ -7,6 +7,9 @@ const avatarPreviewElement = adFormElement.querySelector('.ad-form-header__previ
 const photoInputElement = adFormElement.querySelector('#images');
 const photoPreviewElement = adFormElement.querySelector('.ad-form__photo');
 
+const defaultAvatarPreviewPadding = avatarInputElement.style.padding;
+const defaultAvatarPreviewInnerHTML = avatarPreviewElement.innerHTML;
+
 const createImgElement = (src, isAvatar) => {
   const result = document.createElement('img');
   result.src = src;
@@ -33,5 +36,13 @@ const setImagePreview = (fileInputElement, previewElement) => {
   });
 };
 
+const resetPreviews = () => {
+  avatarPreviewElement.style.padding = defaultAvatarPreviewPadding;
+  avatarPreviewElement.innerHTML = defaultAvatarPreviewInnerHTML;
+  photoPreviewElement.innerHTML = '';
+};
+
 setImagePreview(avatarInputElement, avatarPreviewElement);
 setImagePreview(photoInputElement, photoPreviewElement);
+
+export {resetPreviews};
