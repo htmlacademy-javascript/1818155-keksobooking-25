@@ -1,3 +1,5 @@
+import {updateSliderMinValue} from './slider.js';
+
 const ROOM_NUMBER_CAPACITY = {
   '1': ['1'],
   '2': ['1', '2'],
@@ -32,6 +34,8 @@ const setMinPriceByType = () => {
 
   priceElement.placeholder = minPrice;
   priceElement.min = minPrice;
+
+  updateSliderMinValue(minPrice);
 };
 
 const initPristine = () => {
