@@ -1,4 +1,4 @@
-import {isFormValid, resetPriceValidation} from './form-validation.js';
+import {checkFormValid, resetPriceValidation} from './form-validation.js';
 import {resetSlider, setSliderState} from './slider.js';
 import {sendData} from './api.js';
 import {resetMap} from './map.js';
@@ -7,8 +7,8 @@ import {resetPreviews} from './image.js';
 const adFormElement = document.querySelector('.ad-form');
 const adFormHeaderElement = adFormElement.querySelector('.ad-form-header');
 const adFormFieldsetElements = adFormElement.querySelectorAll('.ad-form__element');
-const submitButton = adFormElement.querySelector('.ad-form__submit');
-const resetButton = adFormElement.querySelector('.ad-form__reset');
+const submitButtonElement = adFormElement.querySelector('.ad-form__submit');
+const resetButtonElement = adFormElement.querySelector('.ad-form__reset');
 
 const filtersFormElement = document.querySelector('.map__filters');
 const filtersFormFilterElements = filtersFormElement.querySelectorAll('.map__filter');
@@ -65,26 +65,26 @@ const resetPage = () => {
   resetPreviews();
 };
 
-resetButton.addEventListener('click', (evt) => {
+resetButtonElement.addEventListener('click', (evt) => {
   evt.preventDefault();
   resetPage();
 });
 
 const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Публикую...';
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = 'Публикую...';
 };
 
 const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Опубликовать';
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = 'Опубликовать';
 };
 
 const setFormSubmit = (onSuccess, onFail) => {
   adFormElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    const isValid = isFormValid();
+    const isValid = checkFormValid();
     if (isValid) {
       blockSubmitButton();
       sendData(
