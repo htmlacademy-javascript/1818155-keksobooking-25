@@ -13,7 +13,9 @@ const COMMON_MARKER_SIZE = 40;
 
 const addressElement = document.querySelector('#address');
 
-let map, mainMarker, markerGroup;
+let map = null;
+let mainMarker = null;
+let markerGroup = null;
 
 const initMap = (onSuccess) => {
   map = L.map('map-canvas')
@@ -57,33 +59,35 @@ const resetMap = () => {
   map.closePopup();
 };
 
+const icon = L.icon({
+  iconUrl: './img/pin.svg',
+  iconSize: [COMMON_MARKER_SIZE, COMMON_MARKER_SIZE],
+  iconAnchor: [COMMON_MARKER_SIZE / 2, COMMON_MARKER_SIZE],
+});
+
+const createMarker = (ad) => {
+  const lat = ad.location.lat;
+  const lng = ad.location.lng;
+
+  const marker = L.marker(
+    {
+      lat,
+      lng,
+    },
+    {
+      icon,
+    },
+  );
+
+  marker
+    .addTo(markerGroup)
+    .bindPopup(createPopup(ad));
+};
+
 const updatePins = (ads) => {
   markerGroup.clearLayers();
 
-  const icon = L.icon({
-    iconUrl: './img/pin.svg',
-    iconSize: [COMMON_MARKER_SIZE, COMMON_MARKER_SIZE],
-    iconAnchor: [COMMON_MARKER_SIZE / 2, COMMON_MARKER_SIZE],
-  });
-
-  ads.forEach((ad) => {
-    const lat = ad.location.lat;
-    const lng = ad.location.lng;
-
-    const marker = L.marker(
-      {
-        lat,
-        lng,
-      },
-      {
-        icon,
-      },
-    );
-
-    marker
-      .addTo(markerGroup)
-      .bindPopup(createPopup(ad));
-  });
+  ads.forEach((ad) => createMarker(ad));
 };
 
 export {initMap, resetMap, updatePins};

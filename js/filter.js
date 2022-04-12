@@ -27,43 +27,45 @@ const compareAds = (ad1, ad2) => {
   return rank2 - rank1;
 };
 
+const checkRequiredType = (ad) => filterTypeElement.value === 'any' || ad.offer.type === filterTypeElement.value;
+const checkRequiredPrice = (ad) => {
+  if (filterPriceElement.value === 'any') {
+    return true;
+  }
+
+  if (!(filterPriceElement.value in PRICE_FILTER)) {
+    return true;
+  }
+
+  const currentPriceFilter = PRICE_FILTER[filterPriceElement.value];
+  return ad.offer.price >= currentPriceFilter.MIN_PRICE && ad.offer.price <= currentPriceFilter.MAX_PRICE;
+};
+const checkRequiredRooms = (ad) => filterRoomsElement.value === 'any' || ad.offer.rooms === parseInt(filterRoomsElement.value, 10);
+const checkRequiredGuests = (ad) => filterGuestsElement.value === 'any' || ad.offer.guests === parseInt(filterGuestsElement.value, 10);
+const checkRequiredFeatures = (ad, activeFeatureFilters) => {
+  if (!activeFeatureFilters.length) {
+    return true;
+  }
+
+  if (!ad.offer.features || !ad.offer.features.length) {
+    return false;
+  }
+
+  return activeFeatureFilters.every((featureFilter) => ad.offer.features.includes(featureFilter));
+};
+
 const filterAds = (ads) => {
   const activeFeatureFilters = Array.from(filterFeaturesElements)
     .filter((feature) => feature.checked)
     .map((feature) => feature.value);
 
   const result = ads
-    // фильтр по типу жилья
-    .filter((ad) => filterTypeElement.value === 'any' || ad.offer.type === filterTypeElement.value)
-    // фильтр по цене
-    .filter((ad) => {
-      if (filterPriceElement.value === 'any') {
-        return true;
-      }
-
-      if (!(filterPriceElement.value in PRICE_FILTER)) {
-        return true;
-      }
-
-      const currentPriceFilter = PRICE_FILTER[filterPriceElement.value];
-      return ad.offer.price >= currentPriceFilter.MIN_PRICE && ad.offer.price <= currentPriceFilter.MAX_PRICE;
-    })
-    // фильтр по количеству комнат
-    .filter((ad) => filterRoomsElement.value === 'any' || ad.offer.rooms === parseInt(filterRoomsElement.value, 10))
-    // фильтр по количеству гостей
-    .filter((ad) => filterGuestsElement.value === 'any' || ad.offer.guests === parseInt(filterGuestsElement.value, 10))
-    // фильтр по наличию удобств
-    .filter((ad) => {
-      if (!activeFeatureFilters.length) {
-        return true;
-      }
-
-      if (!ad.offer.features || !ad.offer.features.length) {
-        return false;
-      }
-
-      return activeFeatureFilters.every((featureFilter) => ad.offer.features.includes(featureFilter));
-    });
+    .filter((ad) => checkRequiredType(ad)
+      && checkRequiredPrice(ad)
+      && checkRequiredRooms(ad)
+      && checkRequiredGuests(ad)
+      && checkRequiredFeatures(ad, activeFeatureFilters)
+    );
 
   // отсортируем прошедшие фильтр объявления по количеству удобств
   return result.sort(compareAds);

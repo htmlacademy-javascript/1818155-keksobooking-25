@@ -8,6 +8,21 @@ const OFFER_TYPE_TEXT = {
 
 const popupTemplate = document.querySelector('#card').content.querySelector('.popup');
 
+const createPhotoPopupBlock = (popup, photos) => {
+  const popupPhotoListElement = popup.querySelector('.popup__photos');
+  const popupPhotoTemplate = popupPhotoListElement.querySelector('img');
+  if (!photos || !photos.length) {
+    popupPhotoListElement.remove();
+  } else {
+    photos.forEach((photo) => {
+      const photoElement = popupPhotoTemplate.cloneNode(true);
+      photoElement.src = photo;
+      popupPhotoListElement.append(photoElement);
+    });
+  }
+  popupPhotoTemplate.remove();
+};
+
 const createPopup = (ad) => {
   const popup = popupTemplate.cloneNode(true);
 
@@ -41,18 +56,7 @@ const createPopup = (ad) => {
     popupDescriptionElement.textContent = ad.offer.description;
   }
 
-  const popupPhotoListElement = popup.querySelector('.popup__photos');
-  const popupPhotoTemplate = popupPhotoListElement.querySelector('img');
-  if (!ad.offer.photos || !ad.offer.photos.length) {
-    popupPhotoListElement.remove();
-  } else {
-    ad.offer.photos.forEach((photo) => {
-      const photoElement = popupPhotoTemplate.cloneNode(true);
-      photoElement.src = photo;
-      popupPhotoListElement.append(photoElement);
-    });
-  }
-  popupPhotoTemplate.remove();
+  createPhotoPopupBlock(popup, ad.offer.photos);
 
   const popupAvatarElement = popup.querySelector('.popup__avatar');
   if (!ad.author.avatar) {

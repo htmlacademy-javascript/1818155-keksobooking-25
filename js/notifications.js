@@ -1,17 +1,17 @@
-import {isEscapeKey} from './util.js';
+import {checkEscapeKey} from './util.js';
 
 const bodyElement = document.querySelector('body');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 
-const onNotificationEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+const onDocumentEscKeydown = (evt) => {
+  if (checkEscapeKey(evt)) {
     evt.preventDefault();
     closeNotification();
   }
 };
 
-const onNotificationClick = () => {
+const onDocumentClick = () => {
   closeNotification();
 };
 
@@ -19,8 +19,8 @@ function closeNotification() {
   const notification = document.querySelector('.notification-shown');
   if (notification) {
     notification.remove();
-    document.removeEventListener('keydown', onNotificationEscKeydown);
-    document.removeEventListener('click', onNotificationClick);
+    document.removeEventListener('keydown', onDocumentEscKeydown);
+    document.removeEventListener('click', onDocumentClick);
   }
 }
 
@@ -33,8 +33,8 @@ const showNotification = (template) => {
     closeErrorButton.addEventListener('click', closeNotification);
   }
 
-  document.addEventListener('keydown', onNotificationEscKeydown);
-  document.addEventListener('click', onNotificationClick);
+  document.addEventListener('keydown', onDocumentEscKeydown);
+  document.addEventListener('click', onDocumentClick);
 
   bodyElement.insertAdjacentElement('beforeend', notification);
 };
