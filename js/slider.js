@@ -1,8 +1,7 @@
-import {validateElement} from './form-validation.js';
+import {validateElement, resetValidation} from './form-validation.js';
 
 const MIN_VALUE = 0;
 const MAX_VALUE = 100000;
-const START_VALUE = 1000;
 const STEP = 100;
 
 const adFormElement = document.querySelector('.ad-form');
@@ -10,12 +9,14 @@ const sliderElement = adFormElement.querySelector('.ad-form__slider');
 const priceElement = adFormElement.querySelector('#price');
 
 const initSlider = () => {
+  const price = priceElement.value;
+
   noUiSlider.create(sliderElement, {
     range: {
       min: MIN_VALUE,
       max: MAX_VALUE,
     },
-    start: START_VALUE,
+    start: price ? price : MIN_VALUE,
     step: STEP,
     connect: 'lower',
     format: {
@@ -32,10 +33,9 @@ const initSlider = () => {
     priceElement.value = sliderElement.noUiSlider.get();
     validateElement(priceElement);
   });
-};
 
-const resetSlider = () => {
-  sliderElement.noUiSlider.set(START_VALUE);
+  priceElement.value = price;
+  resetValidation();
 };
 
 const setSliderState = (enabled) => {
@@ -43,6 +43,20 @@ const setSliderState = (enabled) => {
     sliderElement.removeAttribute('disabled');
   } else {
     sliderElement.setAttribute('disabled', true);
+  }
+};
+
+const updateSliderValue = (value) => {
+  if (!sliderElement.noUiSlider) {
+    return;
+  }
+
+  sliderElement.noUiSlider.set(value ? value : MIN_VALUE);
+
+  // цена не должна самопроизвольно меняться, даже если не подходит под допустимые значения слайдера
+  if (priceElement.value !== value) {
+    priceElement.value = value;
+    validateElement(priceElement);
   }
 };
 
@@ -58,25 +72,11 @@ const updateSliderMinValue = (value) => {
     });
   }
 
-  // цена не должна самопроизвольно меняться, даже если стала выходить за новый диапазон слайдера
-  priceElement.value = price;
+  updateSliderValue(price);
 };
 
 priceElement.addEventListener('change', () => {
-  if (!priceElement.value) {
-    return;
-  }
-
-  const price = parseFloat(priceElement.value);
-  if (price >= MIN_VALUE && price <= MAX_VALUE) {
-    sliderElement.noUiSlider.set(price);
-
-    // в случае, если слайдер округлил цену под свои допустимые значения, возвращаем её изначальное значение в поле
-    if (parseFloat(priceElement.value) !== price) {
-      priceElement.value = price;
-      validateElement(priceElement);
-    }
-  }
+  updateSliderValue(priceElement.value);
 });
 
-export {initSlider, resetSlider, setSliderState, updateSliderMinValue};
+export {initSlider, setSliderState, updateSliderMinValue};
