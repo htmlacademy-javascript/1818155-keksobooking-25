@@ -62,10 +62,15 @@ roomNumberElement.addEventListener('change', () => {
   pristine.validate(capacityElement);
 });
 
-typeElement.addEventListener('change', () => {
+const resetValidation = () => {
   setMinPriceByType();
+  pristine.reset();
+};
 
-  if (priceElement.value.length) {
+typeElement.addEventListener('change', () => {
+  resetValidation();
+
+  if (priceElement.value && priceElement.value.length) {
     pristine.validate(priceElement);
   }
 });
@@ -88,9 +93,4 @@ const validateElement = (element) => {
 
 const checkFormValid = () => pristine.validate();
 
-const resetPriceValidation = () => {
-  setMinPriceByType();
-  pristine.reset();
-};
-
-export {validateElement, checkFormValid, resetPriceValidation};
+export {validateElement, checkFormValid, resetValidation};

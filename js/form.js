@@ -1,5 +1,5 @@
-import {checkFormValid, resetPriceValidation} from './form-validation.js';
-import {resetSlider, setSliderState} from './slider.js';
+import {checkFormValid, resetValidation} from './form-validation.js';
+import {setSliderState} from './slider.js';
 import {sendData} from './api.js';
 import {resetMap} from './map.js';
 import {resetPreviews} from './image.js';
@@ -60,8 +60,7 @@ const resetPage = () => {
     resetPins();
   }
 
-  resetSlider();
-  resetPriceValidation();
+  resetValidation();
   resetPreviews();
 };
 
